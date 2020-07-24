@@ -18,7 +18,7 @@ class passwordGenerator():
         self.symbols = tk.IntVar()
         self.acceptedCharacters = []
 
-        self.titleLabel = tk.Label(text="Password Generator", font=("Courier", 16)).grid(sticky='W')
+        self.titleLabel = tk.Label(text="Password Generator", font=("Courier", 16)).grid(sticky='W', columnspan=3)
         self.charactersLabel = tk.Label(text="Number of characters:").grid(sticky='W')
         self.characterEntry = tk.Entry(width=3)
         self.characterEntry.grid(row=1,column=1)
@@ -40,6 +40,7 @@ class passwordGenerator():
 
     def verifyCheckboxes(self):
 
+        self.errorLabel["text"] = ""    #reset error label
         self.acceptedCharacters = []
         
         if len(self.characterEntry.get()) > 0:
@@ -65,8 +66,11 @@ class passwordGenerator():
                     else:
                         self.errorLabel["text"] = "Select at least one of the checkboxes"
 
+                else:
+                    self.errorLabel["text"] = "Choose a number that is greater than zero"
+                
             except:
-                self.errorLabel["text"] = "Choose a number that is greater than zero"
+                self.errorLabel["text"] = "Please enter a number"
                 
 
         else:
@@ -99,6 +103,7 @@ class passwordGenerator():
     def reset(self):
         self.acceptedCharacters = []
         self.resultLabel["text"] = "Result:"
+        self.errorLabel["text"] = ""
         
         if len(self.characterEntry.get()) > 0:
             self.characterEntry.delete(0, 'end')
