@@ -6,18 +6,30 @@ class passwordGenerator():
     def __init__(self, master):
         self.master = master
         master.title = ("Password Generator")
-        
+
+        #Lists of characters
         self.lowercaseLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
         self.uppercaseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
         self.numbersList = ["0","1","2","3","4","5","6","7","8","9"]
         self.symbolsList = ["!","\"","£","$","%","^","&","*","(",")","_","-","+","=","[","{","]","}",";",":","@","\'","#","<",">","?","/"]
 
-        self.titleLabel = tk.Label(text="Password Generator", font=("Courier", 16)).grid(sticky='NW',columnspan=10,pady=15)
+        #Frames
+        #entryFrame = Frame(master, bg='aaabb8')
+
+        self.titleLabel = tk.Label(text="Password Generator", font=("Times",16)).grid(sticky='NW',columnspan=10,pady=15)
         self.charactersLabel = tk.Label(text="Number of characters:").grid(sticky='W')
         self.characterEntry = tk.Entry(width=3)
         self.characterEntry.grid(row=1,column=1,pady=10,sticky='W')
 
-        self.optionsLabel = tk.Label(text="Character Options").grid(sticky='W')
+        self.generateButton = tk.Button(text="Generate Password", command=self.verifyCheckboxes, bg='#464866').grid(sticky='W',pady=10)
+        self.resultLabel = tk.Label(text="Result:", font=("Times",10))
+        self.resultLabel.grid(sticky='W')
+        self.resetButton = tk.Button(text="Reset Options", command=self.reset).grid(row=4,column=0,pady=10,sticky='W')
+
+        self.errorLabel = tk.Label(text="")
+        self.errorLabel.grid(sticky='W')
+
+        self.optionsLabel = tk.Label(text="Character Options", font=("Times", 11)).grid(sticky='W')
         self.acceptedCharacters = []
         
         self.lowercase = tk.IntVar()
@@ -30,13 +42,7 @@ class passwordGenerator():
         self.numbersCheckbutton = tk.Checkbutton(master, text="Numbers", variable=self.numbers).grid(sticky='W')
         self.symbolsCheckbutton = tk.Checkbutton(master, text="Symbols", variable=self.symbols).grid(sticky='W')
 
-        self.generateButton = tk.Button(text="Generate Password", command=self.verifyCheckboxes).grid(sticky='W',pady=10)
-        self.resetButton = tk.Button(text="Reset", command=self.reset).grid(row=7,column=1,pady=10)
-        self.resultLabel = tk.Label(text="Result:")
-        self.resultLabel.grid(sticky='W')
-
-        self.errorLabel = tk.Label(text="")
-        self.errorLabel.grid(sticky='W')
+        
 
     def verifyCheckboxes(self):
 
@@ -115,7 +121,8 @@ class passwordGenerator():
 
 def main():
     window = tk.Tk()
-    window.geometry("300x300")
+    window.geometry("350x250")
+    window.configure(bg='#aaabb8')
     generator = passwordGenerator(window)
     window.mainloop()
 
